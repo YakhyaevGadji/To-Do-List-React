@@ -2,11 +2,6 @@ import React from "react";
 
 class ListItem extends React.Component {
 
-    state = {
-        important: false,
-        done: false
-    }
-
     toggleImportant = () => {
         this.setState((state) => {
             return {
@@ -28,11 +23,11 @@ class ListItem extends React.Component {
 
         let classImportant = 'todo-item';
 
-        if(this.state.important) {
+        if(this.props.task.important) {
             classImportant += ' important';
         }
 
-        if(this.state.done) {
+        if(this.props.task.done) {
             classImportant += ' done';
         }
 
@@ -40,7 +35,7 @@ class ListItem extends React.Component {
         <li className={classImportant}>
             <span onClick={this.toggleDone} className="todo-item-text">{this.props.task.title}</span>
             <div className="btn-group">
-                <button onClick={this.toggleImportant} className="btn btn-outline-dark btn-sm">Важное</button>
+                <button onClick={() => {this.props.onToggleImportant(this.props.task.id)}} className="btn btn-outline-dark btn-sm">Важное</button>
                 <button className="btn btn-outline-danger btn-sm">Удалить</button>
             </div>
         </li>
