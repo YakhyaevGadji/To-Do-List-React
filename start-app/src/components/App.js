@@ -21,14 +21,13 @@ class ListItem extends React.Component {
             const index = state.todolist.findIndex((el) => el.id === id); 
             const oldTask = state.todolist[index];
             
-            const newTask = {...oldTask, important: !oldTask.important};
+            const newTask = {...oldTask, done: false, important: !oldTask.important};
             
             const part1 = state.todolist.slice(0, index);
             const part2 = state.todolist.slice(index + 1);
 
             const newArray = [...part1, newTask, ...part2];
             
-            console.log(newArray);
             return {
                todolist: newArray
             }
@@ -36,12 +35,30 @@ class ListItem extends React.Component {
        
     };
 
+    onToggleDone = (id) => {
+        this.setState((state) => {
+            const index = state.todolist.findIndex((el) => el.id === id);
+            
+            const oldTask = state.todolist[index];
+            const newTask = {...oldTask, important: false, done: !oldTask.done};
+            
+            const part1 = state.todolist.slice(0, index);
+            const part2 = state.todolist.slice(index + 1);
+            
+            const newArray = [...part1, newTask, ...part2];
+            
+            return {
+                todolist: newArray
+            }
+        });
+    };
+
     render() {
         return (
             <>
             <Header/>
             <Search/>
-            <List data={this.state.todolist} onToggleImportant={this.onToggleImportant}/>
+            <List data={this.state.todolist} onToggleImportant={this.onToggleImportant} onToggleDone={this.onToggleDone}/>
             <Footer/>
             </>
         )

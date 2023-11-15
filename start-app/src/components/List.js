@@ -2,7 +2,7 @@ import ListItem from "./ListItem";
 
 const List = (parm) => {
     const task = parm.data.map((item) => {
-        return <ListItem key={item.id} task={item} onToggleImportant={parm.onToggleImportant}/>
+        return <ListItem key={item.id} task={item} onToggleImportant={parm.onToggleImportant} onToggleDone={parm.onToggleDone}/>
     })
 
     const emptyList = (<li className="todo-item justify-content-center">
